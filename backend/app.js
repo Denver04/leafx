@@ -7,7 +7,7 @@ const { v4: uuidv4 } = require('uuid');
 
 
 const app = express()
-const port = 3000
+const port = 8000
 const MIME_TYPE = {
     "meimage/jpg" : "jpg",
     "meimage/png" : "png",
@@ -44,22 +44,28 @@ app.use((req,res,next)=>{
     next();
 })
 
+// app.get('/', (req, res, next) => {
+//     res.send('Hello World!')
+// })
 
 app.post('/start', upload.single('meimage') , (req, res) => {
  
     var dataToSend;
     // spawn new child process to call the python script
+    // console.log("python chal rha");
     const python = spawn('python', ['script.py']);
     // collect data from script
     python.stdout.on('data', function (data) {
-     console.log('Pipe data from python script ...');
+    //  console.log('Pipe data from python script ...');
     //  dataToSend = data.toString();
     // dataToSend = data.eval();
+    // console.log("printing data");
+    // console.log(data);
      res.send(data);
     });
     // in close event we are sure that stream from child process is closed
     python.on('close', (code) => {
-    console.log(`child process close all stdio with code ${code}`);
+    // console.log(`child process close all stdio with code ${code}`);
     // send data to browser
     res.send(dataToSend)
     });
