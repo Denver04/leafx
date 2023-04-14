@@ -13,9 +13,15 @@ import useLocalStorage from 'use-local-storage';
 function App() {
   const location = useLocation();
   const [theme , setTheme] = useLocalStorage("dark");
-  const change = () =>{
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
+  const change = (bool) =>{
+    // console.log(bool);
+    // const newTheme = theme === "light" ? "dark" : "light";
+    if(bool === true){
+    setTheme("light");
+    }
+    else{
+      setTheme("dark");
+    }
     // console.log(newTheme);
   }
   return (

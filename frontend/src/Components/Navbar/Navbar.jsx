@@ -17,7 +17,7 @@ import useLocalStorage from 'use-local-storage';
 function Navbar({change}) {
 
     const [drawer , setDrawer] = useState(false);
-    const [mode , setMode] = useLocalStorage(true);
+    const [mode , setMode] = useLocalStorage("theme", true);
     const openDrawer = () =>{
         setDrawer(!drawer);
         // console.log(drawer);
@@ -25,7 +25,7 @@ function Navbar({change}) {
     const changeMode = () =>{
        setMode(!mode);
        change(!mode);
-       console.log(mode);
+    //    console.log(mode);
     }
 
     const NavbarVariants = {
@@ -70,7 +70,7 @@ function Navbar({change}) {
         </div>
         <div onClick={changeMode} className='menu-icon'>
             {
-                mode ? <LightModeOutlinedIcon className='icon' /> : <DarkModeOutlinedIcon className='icon' />
+                !mode ? <LightModeOutlinedIcon className='icon' /> : <DarkModeOutlinedIcon className='icon' />
             }
         </div>
         {
