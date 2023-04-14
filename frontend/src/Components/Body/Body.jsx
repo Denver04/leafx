@@ -78,7 +78,7 @@ function Body() {
     // console.log(imageName);
     formData.append('meimage', imageName);
 
-    console.log(formData);
+    // console.log(formData);
     axios.post(api, formData)
       .then((response) => {
       // setJson(response.json)
