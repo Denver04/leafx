@@ -69,7 +69,7 @@ function Body() {
     // };
   }, [prediction.random , error]);
 
-  let api = "http://localhost:3000/start";
+  let api = "http://localhost:8000/start";
 
   const saveImage = (e) => {
     setLoading(false);
@@ -103,7 +103,7 @@ function Body() {
           setMsg(arr2[0]);
         }
         // console.log("hmmm")
-        console.log(response.data);
+        // console.log(response.data);
         // setStatus(response.data.message, "success");
         setLoading(true);
       })
