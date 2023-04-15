@@ -28,6 +28,7 @@ const upload = multer({
             // console.log(vr);
             name = vr + '.' + ext;
             cb(null , name);
+            // cb(null , Date.now() + '--' + file.originalname)
         }
     }),
     // dest : "/uploads"
