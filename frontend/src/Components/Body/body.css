@@ -210,6 +210,12 @@ figcaption , .figcaption{
     letter-spacing: 1px;
 }
 
+.alert{
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+}
+
 @media screen and (max-width:600px) {
     .demo{
         width: 90%;

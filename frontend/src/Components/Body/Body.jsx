@@ -4,6 +4,7 @@ import ajhu from "../../images/pfp.png";
 import demo1 from "../../images/demo1.jpg";
 import demo2 from "../../images/demo2.jpg";
 import demo3 from "../../images/demo3.jpg";
+import panda from "../../images/panda.jpg";
 import { motion } from "framer-motion";
 import { ColorRing } from "react-loader-spinner"
 import axios from "axios";
@@ -45,19 +46,36 @@ function Body() {
   const [error , setError] = useState("");
   const [predictshow , setPredictShow] = useState(true);
   const [loading , setLoading] = useState(true);
+  const [isImage , setIsImage] = useState(false);
+  const [display , setDisplay] = useState(false);
 
   const imageBtn = (e) => {
     setShow(false);
     // setMsg("");
+    console.log(e.target.files);
+    // console.log(lastpart);
     if(e.target.files[0] === undefined){
       setBtn(false);
       setFile(ajhu);
+      setDisplay(false);
+      // setIsImage(false);
     }
     else{
-      setFile(URL.createObjectURL(e.target.files[0]));
-      setBtn(true);
+      const lastpart = (e.target.files[0]).name.split(".").pop();
+      if(lastpart === "jpg" || lastpart === "jpeg" || lastpart === "png"){
+        setIsImage(true);
+        setDisplay(false);
+        setFile(URL.createObjectURL(e.target.files[0]));
+        setBtn(true);
+      }
+      else{
+        setIsImage(false);
+        setDisplay(true);
+        setFile(panda);
+      }
+      // setIsImage(true);
     }
-    // console.log((e.target.files[0]));
+    // console.log((e.target.files[0]).name);
     // setFile(URL.createObjectURL(e.target.files[0]));
     setImageName(e.target.files[0]);
   };
@@ -75,7 +93,7 @@ function Body() {
     setLoading(false);
     // const form = file;
     let formData = new FormData();
-    // console.log(imageName);
+    console.log(imageName);
     formData.append('meimage', imageName);
 
     // console.log(formData);
@@ -133,37 +151,42 @@ function Body() {
               className="input-file"
               type="file"
               onChange={imageBtn}
-              accept="image/*"
+              accept="image/jpeg, image/png, image/jpg"
               required
               name="meimage"
             />
-            {/* <input type="submit" className="submit" value="Submit" /> */}
           </form>
           <div className="image">
             <img className="img-prev" src={file} alt="preview of upload" />
           </div>
-          {/* {
-          btn &&  */}
+
           {
-            loading ?
-            <button
-            onClick={saveImage}
-            className={`${"submit-link"} ${btn && "display"}`}
-            // disabled={dis}
-          >
-            Submit
-          </button> : 
-          <div className="load">
-          <ColorRing
-            visible={true}
-            height="70"
-            width="70"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={['var(--h1)', 'var(--h1)', 'var(--h1)', 'var(--h1)', 'var(--h1)' , "var(--h1)" ]}
-          />
-          </div>
+            !isImage && display ? 
+            <p className="alert">Please upload a image</p>
+            :
+            <>
+            {
+              loading ?
+              <button
+              onClick={saveImage}
+              className={`${"submit-link"} ${btn && isImage && "display"}`}
+              // disabled={dis}
+            >
+              Submit
+            </button> : 
+            <div className="load">
+            <ColorRing
+              visible={true}
+              height="70"
+              width="70"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={['var(--h1)', 'var(--h1)', 'var(--h1)', 'var(--h1)', 'var(--h1)' , "var(--h1)" ]}
+            />
+            </div>
+            }
+            </>
           }
         </div>
         <hr />
