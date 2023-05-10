@@ -62,7 +62,8 @@ function Body() {
     }
     else{
       const lastpart = (e.target.files[0]).name.split(".").pop();
-      if(lastpart === "jpg" || lastpart === "jpeg" || lastpart === "png"){
+      const lower_last = lastpart.toLowerCase();
+      if(lower_last === "jpg" || lower_last === "jpeg" || lower_last === "png"){
         setIsImage(true);
         setDisplay(false);
         setFile(URL.createObjectURL(e.target.files[0]));
